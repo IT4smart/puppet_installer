@@ -24,6 +24,6 @@ Invoke-WebRequest -Uri $PuppetInstallerUrl -OutFile "puppet-agent.msi"
 
 # Install Puppet agent
 Write-Host "Installing Puppet agent..."
-Start-Process -FilePath "msiexec.exe" -ArgumentList "/qn /norestart /i puppet-agent.msi PUPPET_MASTER_SERVER=$puppet_master_server PUPPET_CA_SERVER=$puppet_ca_server PUPPET_AGENT_CERTNAME=$puppet_agent_certname PUPPET_AGENT_ENVIRONMENT=$puppet_agent_environment PUPPET_AGENT_STARTUP_MODE=$puppet_agent_startup_mode" -Wait
+Start-Process -FilePath "msiexec.exe" -ArgumentList "/qn /norestart /i /l*v install.txt puppet-agent.msi PUPPET_MASTER_SERVER=$puppet_master_server PUPPET_CA_SERVER=$puppet_ca_server PUPPET_AGENT_CERTNAME=$puppet_agent_certname PUPPET_AGENT_ENVIRONMENT=$puppet_agent_environment PUPPET_AGENT_STARTUP_MODE=$puppet_agent_startup_mode" -Wait
 
 Write-Host "Puppet agent installation and configuration completed."

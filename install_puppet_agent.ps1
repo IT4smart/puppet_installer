@@ -35,6 +35,39 @@ if ($ret -eq 0) {
   echo "Error: $ret"
 }
 
+# Define the properties for the new firewall rules
+$displayNameTCP = "Allow Ruby Inbound TCP"    # Display name for the TCP rule
+$displayNameUDP = "Allow Ruby Inbound UDP"    # Display name for the UDP rule
+$descriptionTCP = "Allow inbound TCP traffic for ruby.exe"  # Description for the TCP rule
+$descriptionUDP = "Allow inbound UDP traffic for ruby.exe"  # Description for the UDP rule
+$action = "Allow"                             # Action (Allow/Deny)
+$program = "C:\program files\puppet labs\puppet\puppet\bin\ruby.exe"              # Path to the program
+$direction = "Inbound"                         # Direction (Inbound/Outbound)
+$protocolTCP = "TCP"                           # Protocol (TCP/UDP)
+$protocolUDP = "UDP"                           # Protocol (TCP/UDP)
+$profile = "Public"                           # Network profile (Domain, Private, Public)
+
+# Create the new firewall rules
+New-NetFirewallRule -DisplayName $displayNameTCP `
+                    -Description $descriptionTCP `
+                    -Action $action `
+                    -Program $program `
+                    -Direction $direction `
+                    -Protocol $protocolTCP `
+                    -Profile $profile
+
+New-NetFirewallRule -DisplayName $displayNameUDP `
+                    -Description $descriptionUDP `
+                    -Action $action `
+                    -Program $program `
+                    -Direction $direction `
+                    -Protocol $protocolUDP `
+                    -Profile $profile
+
+Write-Host "Firewall rules for Ruby have been successfully added."
+
+
+
 Write-Host "Request agent certificate"
 $ret = (Start-Process -FilePath "C:\Program Files\Puppet Labs\Puppet\bin\puppet.bat" -ArgumentList "agent --waitforcert 60 -t --verbose --debug" -Wait -Passthru).ExitCode
 

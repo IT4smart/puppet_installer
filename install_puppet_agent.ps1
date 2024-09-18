@@ -70,7 +70,7 @@ Write-Host "Firewall rules for Ruby have been successfully added."
 
 
 Write-Host "Request agent certificate"
-$ret = (Start-Process -FilePath "C:\Program Files\Puppet Labs\Puppet\bin\puppet.bat" -ArgumentList "agent --waitforcert 60 -t --verbose --debug" -Wait -Passthru).ExitCode
+$ret = (Start-Process -FilePath "C:\Program Files\Puppet Labs\Puppet\bin\puppet.bat" -ArgumentList "agent --waitforcert 60 -t --verbose" -Wait -Passthru).ExitCode
 
 if ($ret -eq 0) {
   echo "OK"
